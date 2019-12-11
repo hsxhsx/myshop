@@ -1,0 +1,97 @@
+
+server:
+  port: 8081
+
+spring:
+  #数据库连接配置
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/hsx_user?characterEncoding=utf-8&useSSL=false
+#    username: root
+#    password: hsx122096
+   datasource:
+  #   数据源基本配置
+     driver-class-name: com.mysql.jdbc.Driver
+     username: root
+     password: hsx122096
+     url: jdbc:mysql://127.0.0.1:3306/hsx_user?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+     type: com.alibaba.druid.pool.DruidDataSource
+     #   数据源其他配置
+     initialSize: 5
+     minIdle: 5
+     maxActive: 20
+     maxWait: 60000
+     timeBetweenEvictionRunsMillis: 60000
+     minEvictableIdleTimeMillis: 300000
+     validationQuery: SELECT 1 FROM DUAL
+     testWhileIdle: true
+     testOnBorrow: false
+     testOnReturn: false
+     poolPreparedStatements: true
+     #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+     filters: stat,wall,log4j
+     maxPoolPreparedStatementPerConnectionSize: 20
+     useGlobalDataSourceStat: true
+     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+   data:
+     mongodb:
+       uri: mongodb://localhost:27017/sysblog
+
+   redis:
+     host: localhost
+     port: 6379
+     password: hsx122096
+     jedis:
+       pool:
+         max-wait: 30000
+         max-active: 100
+         max-idle: 8
+         min-idle: 0
+     timeout: 3000
+
+
+#mybatis的相关配置
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:Mapper/*.xml
+  type-aliases-package: com.hsx.myshop.entity
+  mapper:
+    mappers: com.pinyu.miniprogram.mysql.mappers.BaseMapper
+    identity: mysql
+  #开启驼峰命名
+  configuration:
+    map-underscore-to-camel-case: true
+
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true  #开启优化，如果开启优化，在分页页码结果没有数据的时候,会显示有数据的页码数据
+  supportMethodsArguments: true #是否支持接口参数来传递分页参数，默认false
+  pageSizeZero: false #pageSize=0 返回所有
+  params: count=countSql
+
+
+  #quartz相关配置
+  quartz:
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: clusteredScheduler #调度器实例名称
+            instanceId: AUTO #调度器实例编号自动生成
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX #持久化方式配置
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate #持久化方式配置数据驱动，MySQL数据库
+            tablePrefix: qrtz_ #quartz相关数据表前缀名
+            isClustered: true #开启分布式部署
+            clusterCheckinInterval: 10000 #分布式节点有效性检查时间间隔，单位：毫秒
+            useProperties: false #配置是否使用
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool #线程池实现类
+            threadCount: 10 #执行最大并发线程数量
+            threadPriority: 5 #线程优先级
+            threadsInheritContextClassLoaderOfInitializingThread: true #配置是否启动自动加载数据库内的定时任务，默认true
+    job-store-type: jdbc
+
+
