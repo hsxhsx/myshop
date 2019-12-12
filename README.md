@@ -7,8 +7,9 @@ springboot基础开源框架，免费学习交流使用，后续慢慢完善，�
 3.配置pagehelper,通用mapper,配置maven打war包
 4.tomcat熟悉发布war包
 5.redis服务器配置，redis注解，redis存储json序列化配置,雪花算法uuid,mongod文件服务器配置图片上传下载
-6.TODO: webscoket,定时任务，发短信邮件功能,mysql和redis数据同步问题.
-7.TODO：shiro鉴权，outh2协议。
-8.TODO: 数据库设计powerdesigner
-9.TODO: 拆分微服务，使用rbmq等消息中间件.
-10.TODO：nigix，docker
+6.webscoket,定时任务，发短信邮件功能,
+7.mysql和redis数据同步问题.
+8.TODO：shiro鉴权，outh2协议。
+9.TODO: 数据库设计powerdesigner
+10.TODO: 拆分微服务，使用rbmq等消息中间件.
+11.TODO：nigix，docker
